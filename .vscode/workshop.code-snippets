@@ -1,0 +1,68 @@
+{
+	"Imports for bot.py": {
+		"scope": "python",
+		"prefix": "import discord",
+		"body": "import discord\nfrom discord.ext import commands\nfrom . import config\nfrom . import reddit",
+		"description": "Import statements for bot.py"
+	},
+	"Get creds json": {
+		"scope": "python",
+		"prefix": "config",
+		"body": "import json\nwith open('config.json') as file:\n     creds = json.load(file)",
+		"description": "Get the creds from the json file"
+	},
+	"Bot prefix": {
+		"scope": "python",
+		"prefix": "bot =",
+		"body": "bot = commands.Bot(command_prefix='?')",
+		"description": "bot obj and prefix"
+	},
+	"On Ready Discord Bot": {
+		"scope": "python",
+		"prefix": "on_ready",
+		"body": "@bot.event\nasync def on_ready():\n    print('Ready!')",
+		"description": "on ready for bot"
+	},
+	"Picture command": {
+		"scope": "python",
+		"prefix": "picture",
+		"body": "@bot.command(description='Post a picture from a subreddit.')\nasync def picture(ctx):\n    args = ctx.message.clean_content.split(' ')\n    theme = args[1]",
+		"description": "Get the photo from reddit inside picture command"
+	},
+	"Get image from Reddit": {
+		"scope": "python",
+		"prefix": "reddit_image",
+		"body": "image = reddit.get_subreddit_image(theme)\n    await ctx.send(file=discord.File(image, 'image.png'))",
+		"description": "Get the image from Reddit and send to Discord"
+	},
+	"Imports for Reddit": {
+		"scope": "python",
+		"prefix": "import praw",
+		"body": "import praw\nimport requests\nfrom io import BytesIO\nfrom . import config",
+		"description": "Import statements for reddit.py"
+	},
+	"Create Reddit Object": {
+		"scope": "python",
+		"prefix": "reddit = ",
+		"body": "reddit = praw.Reddit(client_id=config.creds['reddit_client_id'], client_secret=config.creds['reddit_client_secret'], user_agent=config.creds['reddit_user_agent'])",
+		"description": "Create a reddit obj with creds"
+	},
+	"Get Subreddit": {
+		"scope": "python",
+		"prefix": "subreddit = ",
+		"body": "subreddit = reddit.subreddit(name)\nurl = ''",
+		"description": "Get a sub reddit object"
+	},
+	"Get photos from subreddit": {
+		"scope": "python",
+		"prefix": "while url == '':",
+		"body": "while url == '':\n     for submission in reddit.subreddit(name).new(limit=1):\n        if submission.domain == 'i.redd.it':\n            url = submission.url",
+		"description": "Get the top photo from a sub reddit"
+	},
+	"Create image object from photo url": {
+		"scope": "python",
+		"prefix": "response = requests.get(url)", 
+		"body": "response = requests.get(url)\nimage = BytesIO(response.content)\nreturn image",
+		"description": "Get the URL image and return an object"
+	}
+}
