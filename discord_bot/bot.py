@@ -16,6 +16,3 @@ async def on_ready():
 async def picture(ctx):
     args = ctx.message.clean_content.split(' ') 
     theme = args[1]
-
-    image = reddit.get_subreddit_image(theme)        
-    await ctx.send(file=discord.File(image, 'image.png'))
